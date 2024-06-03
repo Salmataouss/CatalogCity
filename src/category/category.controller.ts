@@ -14,7 +14,10 @@ export class CategoryController {
   async getCategories(): Promise<Category[]> {
     return this.categoryService.getCategories();
   }
-
+  @Post()
+  async createCategory(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
+    return this.categoryService.createCategory(createCategoryDto);
+  }
   @Post("/url")
    testImage(@Body("url") url: string): Promise<any> {
     return this.categoryService.createUrl(url);

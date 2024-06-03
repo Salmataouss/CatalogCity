@@ -66,11 +66,11 @@ export class CategoryService {
   }
 
  // Method to create a new category
-  async createCategory(category: Category): Promise<Category> {
-    const newCategory = new this.categoryModel(category);
-    return newCategory.save();
-  }
-
+ 
+ async createCategory(createCategoryDto: CreateCategoryDto): Promise<Category> {
+  const newCategory = new this.categoryModel(createCategoryDto);
+  return newCategory.save();
+}
 //   async UpdateImagecategory(url:string,id:string): Promise<any> {
 //     const categoryimage= await this.categoryModel.findById(id);
 //     if (!categoryimage){
