@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Param, HttpException, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, HttpException, Query, UseGuards } from '@nestjs/common';
 import { CategoryService } from 'src/category/category.service';
 import * as mongoose from 'mongoose';
 import { Category } from 'src/schemas/category.schema';
 import { url } from 'inspector';
 import { CreateCategoryDto } from './dto/CreateCategory.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard) // I added this so only authorized users can access these endpoints
 @Controller('categories')
 export class CategoryController {
   constructor(
