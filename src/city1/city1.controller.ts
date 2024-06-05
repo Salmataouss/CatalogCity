@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Param, Get, Put } from '@nestjs/common';
 import { CityService } from './city1.service';
-import { City1 } from 'src/schemas/city1.schema';
+import { city1} from 'src/schemas/city1.schema';
 import { CreateCityDto } from 'src/city1/dto1/CreateCity1.dto';
 import { ThingToDo } from './things_to_do.schema';
 import { Restaurant } from './restaurant.schema';
@@ -13,11 +13,11 @@ export class CityController1 {
   constructor(private readonly cityService: CityService) {}
 
   @Post()
-  async createCity(@Body() createCityDto: CreateCityDto): Promise<City1> {
+  async createCity(@Body() createCityDto: CreateCityDto): Promise<city1> {
     return this.cityService.createCity(createCityDto);
   }
   @Get(':id')
-  async getCityById(@Param('id') id: string): Promise<City1> {
+  async getCityById(@Param('id') id: string): Promise<city1> {
     return this.cityService.getCityById(id);
   }
   @Get(':cityId/things-to-do')
@@ -45,7 +45,7 @@ export class CityController1 {
     return this.cityService.updateCityById(cityId, updateCityDto);
   }
   @Get()
-  async getAllCities(): Promise<City1[]> {
+  async getAllCities(): Promise<city1[]> {
     return this.cityService.getAllCities();
   }
 }

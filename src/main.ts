@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   dotenv.config(); // Load environment variables from .env file
@@ -9,6 +10,7 @@ async function bootstrap() {
   console.log('JWT_EXPIRES:', process.env.JWT_EXPIRES); // Verify JWT_EXPIRES is loaded correctly
 
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }
 bootstrap();

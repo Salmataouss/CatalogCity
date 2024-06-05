@@ -136,7 +136,7 @@ const CraftStoreSchema = SchemaFactory.createForClass(CraftStore);
 ////////
 
 @Schema()
-export class City1 extends Document {
+export class city1 extends Document {
   @Prop({ required: true })
   id: number;
 
@@ -149,7 +149,7 @@ export class City1 extends Document {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true }) 
   address: string;
 
   @Prop()
@@ -183,4 +183,4 @@ export class City1 extends Document {
   craftstores: CraftStore[];
 }
 
-export const CitySchema = SchemaFactory.createForClass(City1);
+export const CitySchema = SchemaFactory.createForClass(city1);

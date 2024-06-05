@@ -4,7 +4,8 @@ import{CategoryModule} from 'src/category/category.module';
 import { CityModule } from 'src/city/city.module'; 
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { CityModule1 } from './city1/city.module';
+import { CityModule1 } from './city1/city1.module';
+import { CountryModule } from './country/country.module';
 //import { KeycloakConfigModule } from './auth/keycloak.module';
 
 
@@ -17,6 +18,7 @@ import { CityModule1 } from './city1/city.module';
       CityModule,
       AuthModule,
       CityModule1,
+      CountryModule,
       ConfigModule.forRoot({
         envFilePath: '.env',
         isGlobal: true,

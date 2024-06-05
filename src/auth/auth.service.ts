@@ -14,7 +14,6 @@ export class AuthService {
     private userModel: Model<User>,
     private jwtService: JwtService,
   ) {}
-
   async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
     const { name, email, password } = signUpDto;
 
@@ -50,4 +49,5 @@ export class AuthService {
 
     return { token };
   }
-}
+
+ }

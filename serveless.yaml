@@ -1,0 +1,31 @@
+# service: nestjs-lambda
+
+# provider:
+#   name: aws
+#   runtime: nodejs14.x
+#   region: eu-central-1
+
+# functions:
+#   app:
+#     handler: dist/lambda.handler
+#     timeout: 30
+#     events:
+#       - http: 
+#           path: /categories
+#           method: ANY
+#       - http: 
+#           path: /{proxy+}
+#           method: ANY
+
+# plugins:
+#   - serverless-offline
+
+# package:
+#   exclude:
+#     - node_modules/**
+#     - test/**
+#     - coverage/**
+
+# custom:
+#   serverless-offline:
+#     port: 3000

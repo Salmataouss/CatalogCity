@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { City1 } from 'src/schemas/city1.schema';
+import { city1 } from 'src/schemas/city1.schema';
 import { CreateCityDto } from 'src/city1/dto1/CreateCity1.dto';
 import { ThingToDo } from './things_to_do.schema';
 import { Restaurant } from './restaurant.schema';
@@ -11,14 +11,14 @@ import { UpdateCityDto } from './dto1/UpdateCity1.dto';
 
 @Injectable()
 export class CityService {
-  constructor(@InjectModel(City1.name) private cityModule1: Model<City1>) {}
+  constructor(@InjectModel(city1.name) private cityModule1: Model<city1>) {}
  //create city
-  async createCity(createCityDto: CreateCityDto): Promise<City1> {
+  async createCity(createCityDto: CreateCityDto): Promise<city1> {
     const newCity = new this.cityModule1(createCityDto);
     return newCity.save();
   }
   //to get city by id . get all the informations 
-  async getCityById(cityId: string): Promise<City1> {
+  async getCityById(cityId: string): Promise<city1> {
     const city = await this.cityModule1.findById(cityId);
     if (!city) {
       throw new NotFoundException(`City with id ${cityId} not found`);
@@ -46,7 +46,7 @@ export class CityService {
     return city.craftstores as CraftStore[];
   }
 //////////////////////////
-  async updateCityById(cityId: string, updateCityDto: UpdateCityDto): Promise<City1> {
+  async updateCityById(cityId: string, updateCityDto: UpdateCityDto): Promise<city1> {
     const existingCity = await this.cityModule1.findByIdAndUpdate(cityId, updateCityDto, {
       new: true,
     });
@@ -56,7 +56,7 @@ export class CityService {
     return existingCity;
   }
    //to get all cities  in each city by id of the city  :
-  async getAllCities(): Promise<City1[]> {
+  async getAllCities(): Promise<city1[]> {
     return this.cityModule1.find().exec();
   }
 }
