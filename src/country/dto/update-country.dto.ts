@@ -1,54 +1,36 @@
-import { IsString, IsBoolean, IsArray, IsOptional, IsNumber, ValidateNested, IsObject } from 'class-validator';
+import { IsOptional, IsString, IsArray, ValidateNested, IsBoolean ,IsNumber, IsNotEmpty} from 'class-validator';
 import { Type } from 'class-transformer';
-
-class CoordinatesDto {
-  @IsNumber()
-  @IsOptional()
-  lat?: number;
-
-  @IsNumber()
-  @IsOptional()
-  lon?: number;
-}
+import { Coordinates } from '../coordinates.schema';
 
 export class UpdateCountryDto {
-  @IsString()
   @IsOptional()
-  title?: string;
-
   @IsString()
-  @IsOptional()
-  country?: string;
+  title?: Record<string, string>;
 
+  @IsOptional()
   @IsString()
-  @IsOptional()
-  address?: string;
+  country?: Record<string, string>;
 
+  @IsOptional()
   @IsString()
-  @IsOptional()
-  description?: string;
+  address?: Record<string, string>;
 
+  @IsOptional()
+  @IsString()
+  description?: Record<string, string>;
+
+  @IsOptional()
   @IsArray()
-  @IsOptional()
   @IsString({ each: true })
   images?: string[];
 
-  @IsObject()
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => CoordinatesDto)
-  coordinates?: CoordinatesDto;
+  @IsNotEmpty()
+  @Type(() => Coordinates) // Use the Coordinates schema
+  coordinates: Coordinates;
 
+  @IsOptional()
   @IsBoolean()
-  @IsOptional()
   isFavourite?: boolean;
-
-  @IsArray()
-  @IsOptional()
-  @IsString({ each: true })
-  searchkey?: string[];
-
-  @IsString()
-  @IsOptional()
-  status?: string;
 }
+
+

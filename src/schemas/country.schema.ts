@@ -2,37 +2,30 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Coordinates, CoordinatesSchema } from 'src/country/coordinates.schema';
 
+export type CountryDocument = Country & Document;
+
 @Schema()
-export class Country extends Document {
-  @Prop({ required: true })
-  id: number;
+export class Country {
+  @Prop({ type: Map, of: String })
+  title: Map<string, string>;
 
-  @Prop({ required: true })
-  title: string;
+  @Prop({ type: Map, of: String })
+  country: Map<string, string>;
 
-  @Prop({ required: true })
-  country: string;
+  @Prop({ type: Map, of: String })
+  address: Map<string, string>;
 
-  @Prop({ required: true })
-  address: string;
+  @Prop({ type: Map, of: String })
+  description: Map<string, string>;
 
-  @Prop({ required: true })
-  description: string;
-
-  @Prop({ required: true, type: [String] })
+  @Prop([String])
   images: string[];
 
-  @Prop({ type: CoordinatesSchema, required: true })
+  @Prop({ type: CoordinatesSchema, required: true }) 
   coordinates: Coordinates;
 
-  @Prop({ required: true })
+  @Prop({ default: false })
   isFavourite: boolean;
-
-  @Prop({ type: [String], required: true })
-  searchkey: string[];
-
-  @Prop({ required: true })
-  status: string;
 }
 
 export const CountrySchema = SchemaFactory.createForClass(Country);

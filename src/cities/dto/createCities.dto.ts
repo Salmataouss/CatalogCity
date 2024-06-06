@@ -1,7 +1,7 @@
-import { IsString, IsNumber, IsBoolean, IsArray, ValidateNested, IsOptional } from 'class-validator';
+import { IsNumber, IsString, IsBoolean, IsArray, ValidateNested, IsOptional, IsObject } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class CoordinatesDto {
+export class CoordinatesDto {
   @IsNumber()
   lat: number;
 
@@ -9,7 +9,7 @@ class CoordinatesDto {
   lon: number;
 }
 
-class ThingToDoDto {
+export class ThingToDoDto {
   @IsNumber()
   id: number;
 
@@ -18,9 +18,6 @@ class ThingToDoDto {
 
   @IsString()
   country: string;
-
-  @IsString()
-  address: string;
 
   @IsString()
   description: string;
@@ -36,7 +33,7 @@ class ThingToDoDto {
   isFavourite: boolean;
 }
 
-class RestaurantDto {
+export class RestaurantDto {
   @IsNumber()
   id: number;
 
@@ -45,9 +42,6 @@ class RestaurantDto {
 
   @IsString()
   country: string;
-
-  @IsString()
-  address: string;
 
   @IsString()
   description: string;
@@ -67,7 +61,7 @@ class RestaurantDto {
   isFavourite: boolean;
 }
 
-class HotelDto {
+export class HotelDto {
   @IsNumber()
   id: number;
 
@@ -76,9 +70,6 @@ class HotelDto {
 
   @IsString()
   country: string;
-
-  @IsString()
-  address: string;
 
   @IsString()
   description: string;
@@ -94,7 +85,7 @@ class HotelDto {
   isFavourite: boolean;
 }
 
-class CraftStoreDto {
+export class CraftStoreDto {
   @IsNumber()
   id: number;
 
@@ -103,9 +94,6 @@ class CraftStoreDto {
 
   @IsString()
   country: string;
-
-  @IsString()
-  address: string;
 
   @IsString()
   description: string;
@@ -121,21 +109,21 @@ class CraftStoreDto {
   isFavourite: boolean;
 }
 
-export class CreateCityDto {
+export class CityDto {
   @IsNumber()
   id: number;
 
-  @IsString()
-  title: string;
+  @IsObject()
+  title: Record<string, string>;
 
-  @IsString()
-  country: string;
+  @IsObject()
+  country: Record<string, string>;
 
-  @IsString()
-  description: string;
+  @IsObject()
+  description: Record<string, string>;
 
-  @IsString()
-  address: string;
+  @IsObject()
+  address: Record<string, string>;
 
   @IsOptional()
   @IsString()
@@ -176,5 +164,4 @@ export class CreateCityDto {
   @ValidateNested({ each: true })
   @Type(() => CraftStoreDto)
   craftstores: CraftStoreDto[];
-  
 }

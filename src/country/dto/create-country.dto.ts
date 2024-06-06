@@ -1,43 +1,37 @@
-import { IsString, IsBoolean, IsArray, IsOptional, IsNumber, ValidateNested, IsObject } from 'class-validator';
+import { IsNotEmpty, IsString, IsArray, ValidateNested, IsBoolean, IsNumber,IsObject } from 'class-validator';
 import { Type } from 'class-transformer';
-
-class CoordinatesDto {
-  @IsNumber()
-  lat: number;
-
-  @IsNumber()
-  lon: number;
-}
+import { Coordinates } from '../coordinates.schema';
+import { CoordinatesDto } from './coordinates.dto';
 
 export class CreateCountryDto {
-  @IsString()
-  title: string;
+  @IsNotEmpty()
+  @IsObject()
+  title: Record<string, string>;
 
-  @IsString()
-  country: string;
+  @IsNotEmpty()
+  @IsObject()
+  country: Record<string, string>;
 
-  @IsString()
-  address: string;
+  @IsNotEmpty()
+  @IsObject()
+  address: Record<string, string>;
 
-  @IsString()
-  description: string;
+  @IsNotEmpty()
+  @IsObject()
+  description: Record<string, string>;
 
   @IsArray()
   @IsString({ each: true })
   images: string[];
 
-  @IsObject()
   @ValidateNested()
   @Type(() => CoordinatesDto)
+  @IsNotEmpty()
   coordinates: CoordinatesDto;
 
+  @IsNotEmpty()
   @IsBoolean()
   isFavourite: boolean;
-
-  @IsArray()
-  @IsString({ each: true })
-  searchkey: string[];
-
-  @IsString()
-  status: string;
 }
+
+
