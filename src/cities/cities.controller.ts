@@ -1,43 +1,52 @@
-import { Controller, Post, Body, Param, Get } from '@nestjs/common';
+import { Controller, Post, Body,Get, Param ,Put, NotFoundException} from '@nestjs/common';
 import { CitiesService } from './cities.service';
-import { ThingToDo} from 'src/cities/things.schema';
-import { Restaurant} from 'src/cities/restaurants.schema';
-import { Hotel } from 'src/cities/hotels.schema';
-import { CraftStore} from 'src/cities/craftstores.schema';
-import { City2 } from 'src/schemas/cities.schema';
 import { CityDto } from './dto/createCities.dto';
-
+import { ThingToDo } from './things.schema';
+import { Restaurant } from './restaurants.schema';
+import { Hotel } from './hotels.schema';
+import { CraftStore } from './craftstores.schema';
+import { UpdateCityDto } from './dto/updateCities.dto';
+import { City2 } from 'src/schemas/cities.schema';
 
 @Controller('cities2')
 export class CitiesController {
-  constructor(private readonly cityService: CitiesService) {}
+  constructor(private readonly citiesService: CitiesService) {}
 
   @Post()
-  async createCity(@Body() createCityDto: CityDto): Promise<City2> {
-    return this.cityService.createCity(createCityDto);
-  }
-  @Get(':id')
-  async getCityById(@Param('id') id: string): Promise<City2> {
-    return this.cityService.getCityById(id);
-  }
-  @Get(':citiesId/things-to-do')
-  async getThingsToDoInCity(@Param('citiesId') cityId: string): Promise<ThingToDo[]> {
-    return this.cityService.getThingsToDoInCity(cityId);
-  }
-  @Get(':citiesId/restaurants')
-  async getRestaurantsInCity(@Param('citiesId') cityId: string): Promise<Restaurant[]> {
-    return this.cityService.getRestaurantsInCity(cityId);
-  }
-  @Get(':citiesId/hotels')
-  async getHotelsInCity(@Param('citiesId') cityId: string): Promise<Hotel[]> {
-    return this.cityService.getHotelsInCity(cityId);
-  }
-  @Get(':citiesId/craftstores')
-  async getCraftStoresInCity(@Param('citiesId') cityId: string): Promise<CraftStore[]> {
-    return this.cityService.getCraftStoresInCity(cityId);
+  async createCity(@Body() cityDto: CityDto) {
+    return this.citiesService.createCity(cityDto);
   }
   @Get()
-  async getAllCities(): Promise<City2[]> {
-    return this.cityService.getAllCities();
+  async getAllCities() {
+    return this.citiesService.getAllCities();
+  }
+  @Get(':id')
+  async getCityById(@Param('id') id: string) {
+    return this.citiesService.getCityById(id);
+  }
+  @Get(':cityId/things')
+  async getThingsToDoInCity(@Param('cityId') cityId: string): Promise<ThingToDo[]> {
+    return this.citiesService.getThingsToDoInCity(cityId);
+  }
+  @Get(':cityId/restaurants')
+  async getRestaurantsInCity(@Param('cityId') cityId: string): Promise<Restaurant[]> {
+    return this.citiesService.getRestaurantsInCity(cityId);
+  }
+  @Get(':cityId/hotels')
+  async getHotelsInCity(@Param('cityId') cityId: string): Promise<Hotel[]> {
+    return this.citiesService.getHotelsInCity(cityId);
+  }
+  @Get(':cityId/craftstores')
+  async getCraftStoresInCity(@Param('cityId') cityId: string): Promise<CraftStore[]> {
+    return this.citiesService.getCraftStoresInCity(cityId);
+  }
+  ///update
+  @Put(':id')
+  async updateCityById(@Param('id') id: string, @Body() updateCityDto: UpdateCityDto): Promise<City2> {
+    const updatedCity = await this.citiesService.updateCityById(id, updateCityDto);
+    if (!updatedCity) {
+      throw new NotFoundException(`City with ID ${id} not found`);
+    }
+    return updatedCity;
   }
 }

@@ -12,6 +12,10 @@ export class CountryController {
   async create(@Body() createCountryDto: CreateCountryDto): Promise<Country> {
     return this.countryService.create(createCountryDto);
   }
+  @Get()
+  async findAll(): Promise<Country[]> {
+    return this.countryService.findAll();
+  }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateCountryDto: UpdateCountryDto): Promise<Country> {

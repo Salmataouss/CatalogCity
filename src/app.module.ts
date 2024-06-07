@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { CityModule1 } from './city1/city1.module';
 import { CountryModule } from './country/country.module';
+import { CitiesModule } from './cities/cities.module';
 //import { KeycloakConfigModule } from './auth/keycloak.module';
 
 
@@ -19,6 +20,7 @@ import { CountryModule } from './country/country.module';
       AuthModule,
       CityModule1,
       CountryModule,
+      CitiesModule,
       ConfigModule.forRoot({
         envFilePath: '.env',
         isGlobal: true,

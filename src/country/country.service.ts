@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Country, CountryDocument } from 'src/schemas/country.schema';
 import { CreateCountryDto} from 'src/country/dto/create-country.dto';
 import {  UpdateCountryDto } from 'src/country/dto/update-country.dto';
+import { Category } from 'src/schemas/category.schema';
 
 @Injectable()
 export class CountryService {
@@ -14,6 +15,9 @@ export class CountryService {
   async create(createCountryDto: CreateCountryDto): Promise<Country> {
     const createdCountry = new this.countryModel(createCountryDto);
     return createdCountry.save();
+  }
+  async findAll(): Promise<Country[]> {
+    return this.countryModel.find().exec();
   }
 
   async update(id: string, updateCountryDto: UpdateCountryDto): Promise<Country> {

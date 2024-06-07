@@ -1,5 +1,16 @@
-import { IsNumber, IsString, IsBoolean, IsArray, ValidateNested, IsOptional, IsObject } from 'class-validator';
+import { IsNumber, IsString, IsBoolean, IsArray, ValidateNested, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
+
+export class TranslationsDto {
+  @IsString()
+  en: string;
+
+  @IsString()
+  fr: string;
+
+  @IsString()
+  arSA: string;
+}
 
 export class CoordinatesDto {
   @IsNumber()
@@ -13,14 +24,17 @@ export class ThingToDoDto {
   @IsNumber()
   id: number;
 
-  @IsString()
-  title: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  title: TranslationsDto;
 
-  @IsString()
-  country: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  country: TranslationsDto;
 
-  @IsString()
-  description: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  description: TranslationsDto;
 
   @IsArray()
   images: string[];
@@ -37,14 +51,17 @@ export class RestaurantDto {
   @IsNumber()
   id: number;
 
-  @IsString()
-  title: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  title: TranslationsDto;
 
-  @IsString()
-  country: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  country: TranslationsDto;
 
-  @IsString()
-  description: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  description: TranslationsDto;
 
   @IsOptional()
   @IsString()
@@ -65,14 +82,17 @@ export class HotelDto {
   @IsNumber()
   id: number;
 
-  @IsString()
-  title: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  title: TranslationsDto;
 
-  @IsString()
-  country: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  country: TranslationsDto;
 
-  @IsString()
-  description: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  description: TranslationsDto;
 
   @IsArray()
   images: string[];
@@ -89,14 +109,17 @@ export class CraftStoreDto {
   @IsNumber()
   id: number;
 
-  @IsString()
-  title: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  title: TranslationsDto;
 
-  @IsString()
-  country: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  country: TranslationsDto;
 
-  @IsString()
-  description: string;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  description: TranslationsDto;
 
   @IsArray()
   images: string[];
@@ -113,17 +136,21 @@ export class CityDto {
   @IsNumber()
   id: number;
 
-  @IsObject()
-  title: Record<string, string>;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  title: TranslationsDto;
 
-  @IsObject()
-  country: Record<string, string>;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  country: TranslationsDto;
 
-  @IsObject()
-  description: Record<string, string>;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  description: TranslationsDto;
 
-  @IsObject()
-  address: Record<string, string>;
+  @ValidateNested()
+  @Type(() => TranslationsDto)
+  address: TranslationsDto;
 
   @IsOptional()
   @IsString()

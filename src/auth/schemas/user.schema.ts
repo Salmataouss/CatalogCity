@@ -13,6 +13,8 @@ export class User extends Document {
 
   @Prop()
   password: string;
+  @Prop()
+  code: string;
 
 }
 
