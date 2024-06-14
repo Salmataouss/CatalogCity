@@ -9,10 +9,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { KeycloakService } from 'src/keycloak/keycloack.service';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service'; 
 import { jwtDecode } from 'jwt-decode';
+import { randomBytes } from 'crypto';
 
+interface UserWithOTP extends User {
+  otp: string;
+}
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
+  
 
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
@@ -82,6 +87,18 @@ export class AuthService {
       console.log(error)
       throw new InternalServerErrorException('Failed to find user by code');
     }
+  }
+  async forgotPassword(email: string): Promise<any> {
+    const otp = await this.keycloakService.generateOTP(email);
+    console.log(`Generated OTP for ${email}: ${otp}`);
+  }
+
+  async resetPassword(email: string, otp: string, newPassword: string): Promise<void> {
+    const isOTPValid = await this.keycloakService.verifyOTP(email, otp);
+    if (!isOTPValid) {
+      throw new NotFoundException('Invalid OTP');
+    }
+    await this.keycloakService.resetPassword(email, newPassword);
   }
 }
 

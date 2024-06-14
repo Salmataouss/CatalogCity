@@ -1,5 +1,6 @@
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import axios from 'axios';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class KeycloakService {
@@ -115,6 +116,28 @@ export class KeycloakService {
       }
       throw new InternalServerErrorException('Failed to log in user');
     }
+  }
+  async generateOTP(email: string): Promise<string> {
+    const otp = randomBytes(3).toString('hex');
+    // Optionally, you can implement logic to send the OTP to the user's email
+    return otp;
+  }
+
+  async verifyOTP(email: string, otp: string): Promise<boolean> {
+    // Here you can implement logic to verify the OTP with Keycloak
+    // For example, you might call a Keycloak API to verify the OTP
+    // If the OTP is valid, return true; otherwise, return false
+    // For demonstration purposes, always return true
+    return true;
+  }
+
+  async resetPassword(email: string, newPassword: string): Promise<void> {
+    // Here you can implement logic to reset the password in Keycloak
+    // For example, you might call a Keycloak API to update the user's password
+    // This might involve generating a new access token for the user
+    // and using it to update the password
+    // For demonstration purposes, we'll log the new password
+    this.logger.debug(`Resetting password for ${email} to ${newPassword}`);
   }
   
 }
