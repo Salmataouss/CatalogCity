@@ -29,9 +29,7 @@ import { CitiesModule } from './cities/cities.module';
    
 
   ],
-  providers: [
-
-  ],
+  providers: [],
   controllers:[],
 
   

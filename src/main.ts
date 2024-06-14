@@ -4,13 +4,19 @@ import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  dotenv.config(); // Load environment variables from .env file
-  console.log('DB_URI:', process.env.DB_URI); // Verify DB_URI is loaded correctly
-  console.log('JWT_SECRET:', process.env.JWT_SECRET); // Verify JWT_SECRET is loaded correctly
-  console.log('JWT_EXPIRES:', process.env.JWT_EXPIRES); // Verify JWT_EXPIRES is loaded correctly
+  dotenv.config();
+  console.log('DB_URI:', process.env.DB_URI); 
+  console.log('JWT_SECRET:', process.env.JWT_SECRET); 
+  console.log('JWT_EXPIRES:', process.env.JWT_EXPIRES);
+  console.log(`KEYCLOAK_BASE_URL: ${process.env.KEYCLOAK_BASE_URL}`);
+  console.log(`KEYCLOAK_REALM: ${process.env.KEYCLOAK_REALM}`);
+  console.log(`KEYCLOAK_CLIENT_ID: ${process.env.KEYCLOAK_CLIENT_ID}`); 
+  console.log(`KEYCLOAK_CLIENT_SECRET: ${process.env.KEYCLOAK_CLIENT_SECRET}`);
 
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
+  app.enableCors();
 }
+
 bootstrap();
