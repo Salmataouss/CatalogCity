@@ -11,9 +11,9 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { jwtDecode } from 'jwt-decode';
 import { randomBytes } from 'crypto';
 
-interface UserWithOTP extends User {
-  otp: string;
-}
+// interface UserWithOTP extends User {
+//   otp: string;
+// }
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
@@ -53,9 +53,9 @@ export class AuthService {
 
       return { token: jwtToken };
     } catch (error) {
-      console.log(error),
+      console.log("error:",error),
       this.logger.error('Error during signup:', JSON.stringify(error, null, 2));
-      throw new InternalServerErrorException('Signup failed');
+      throw new InternalServerErrorException('Signup failed , email already existe');
     }
   }
 
@@ -72,7 +72,7 @@ export class AuthService {
       return { user, ...keycloakResponse };
     } catch (error) {
       this.logger.error('Error during login:', error);
-      throw new UnauthorizedException('La connexion a échoué. Veuillez réessayer.');
+      throw new UnauthorizedException('incorrect email or password ');
     }
   }
 
@@ -88,48 +88,18 @@ export class AuthService {
       throw new InternalServerErrorException('Failed to find user by code');
     }
   }
-  async forgotPassword(email: string): Promise<any> {
-    const otp = await this.keycloakService.generateOTP(email);
-    console.log(`Generated OTP for ${email}: ${otp}`);
-  }
+  // async forgotPassword(email: string): Promise<any> {
+  //   const otp = await this.keycloakService.generateOTP(email);
+  //   console.log(`Generated OTP for ${email}: ${otp}`);
+  // }
 
-  async resetPassword(email: string, otp: string, newPassword: string): Promise<void> {
-    const isOTPValid = await this.keycloakService.verifyOTP(email, otp);
-    if (!isOTPValid) {
-      throw new NotFoundException('Invalid OTP');
-    }
-    await this.keycloakService.resetPassword(email, newPassword);
-  }
+  // async resetPassword(email: string, otp: string, newPassword: string): Promise<void> {
+  //   const isOTPValid = await this.keycloakService.verifyOTP(email, otp);
+  //   if (!isOTPValid) {
+  //     throw new NotFoundException('Invalid OTP');
+  //   }
+  //   await this.keycloakService.resetPassword(email, newPassword);
+  // }
 }
 
-  // async login(loginDto: LoginDto): Promise<any> {
-  //   const { email, password } = loginDto;
-
-  //   try {
-  //     const keycloakResponse = await this.keycloakService.login(email, password);
-  //     const jwt = jwtDecode(keycloakResponse.access_token);
-  //     const code = jwt["code"];
-  //     /////////
-  //     console.log('le code est :', code);
-  //     /////////
-  //     const user = await this.findUserByCode(code);
-  //     return { user, ...keycloakResponse };
-  //   } catch (error) {
-  //     console.log(error),
-  //     this.logger.error('Error during login:', error);
-  //     throw new UnauthorizedException('la connexion a  echouee, veuillez reessayer');
-  //   }
-  // }
-
-  // async findUserByCode(code: string): Promise<User> {
-  //   try {
-  //     const user = await this.userModel.findOne({ code }).exec();
-  //     if (!user) {
-  //       throw new NotFoundException('User not found');
-  //     }
-  //     return user;
-  //   } catch (error) {
-  //     throw new InternalServerErrorException('Failed to find user by code');
-  //   }
-  // }
-
+  

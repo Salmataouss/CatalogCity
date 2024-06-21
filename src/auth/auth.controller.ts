@@ -18,21 +18,21 @@ export class AuthController {
     console.log('Received Login request:', loginDto);
     return this.authService.login(loginDto);
   }
-  @Post('forgot-password')
-  async forgotPassword(@Body('email') email: string): Promise<{ message: string; otp: string }> {
-    const otp = await this.authService.forgotPassword(email);
-    // Optionally, you can send a success response back to the client
-    return {
-      message: 'Password reset instructions and OTP have been sent to your email.',
-      otp: otp
-    };
-  }
+  // @Post('forgot-password')
+  // async forgotPassword(@Body('email') email: string): Promise<{ message: string; otp: string }> {
+  //   const otp = await this.authService.forgotPassword(email);
+  //   // Optionally, you can send a success response back to the client
+  //   return {
+  //     message: 'Password reset instructions and OTP have been sent to your email.',
+  //     otp: otp
+  //   };
+  // }
 
 
-  @Post('reset-password')
-  async resetPassword(@Body('email') email: string, @Body('otp') otp: string, @Body('newPassword') newPassword: string): Promise<void> {
-    await this.authService.resetPassword(email, otp, newPassword);
-    // Optionally, you can send a success response back to the client
-  }
+  // @Post('reset-password')
+  // async resetPassword(@Body('email') email: string, @Body('otp') otp: string, @Body('newPassword') newPassword: string): Promise<void> {
+  //   await this.authService.resetPassword(email, otp, newPassword);
+  //   // Optionally, you can send a success response back to the client
+  // }
 
 }
