@@ -173,21 +173,25 @@ export class CityDto {
   status: string;
 
   @IsArray()
+  @IsOptional() //////
   @ValidateNested({ each: true })
   @Type(() => ThingToDoDto)
   thingstodo: ThingToDoDto[];
 
   @IsArray()
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => RestaurantDto)
   restaurants: RestaurantDto[];
 
   @IsArray()
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => HotelDto)
   hotels: HotelDto[];
 
   @IsArray()
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => CraftStoreDto)
   craftstores: CraftStoreDto[];

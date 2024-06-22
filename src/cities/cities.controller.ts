@@ -1,4 +1,4 @@
-import { Controller, Post, Body,Get, Param ,Put, NotFoundException} from '@nestjs/common';
+import { Controller, Post, Body,Get, Param ,Put, NotFoundException, Delete} from '@nestjs/common';
 import { CitiesService } from './cities.service';
 import { CityDto } from './dto/createCities.dto';
 import { ThingToDo } from './things.schema';
@@ -48,5 +48,9 @@ export class CitiesController {
       throw new NotFoundException(`City with ID ${id} not found`);
     }
     return updatedCity;
+  }
+  @Delete(':id')
+  async deleteCityById(@Param('id') id: string): Promise<void> {
+    return this.citiesService.deleteCityById(id);
   }
 }
